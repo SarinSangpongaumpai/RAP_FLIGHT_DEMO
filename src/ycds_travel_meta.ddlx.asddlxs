@@ -1,0 +1,101 @@
+@Metadata.layer: #CORE
+@UI: { headerInfo: { typeName:'Flight schedule',
+                     typeNamePlural: 'Flight Schedule',
+                              // Title object Page
+                     title: { type: #STANDARD,
+                              label: 'Flight Schedule detail',
+                              value: 'Carrid'
+                            },
+                     description:{
+                        value:'carrname'
+                     }
+                    }
+      }
+annotate view YCDS_TRAVEL_PROJECTION with
+{
+  // แสดงรายละเอียดข้อมูลในอีกหน้าจอ
+  @UI.facet: [{ id:       'Travel_ID',
+                purpose:  #HEADER,
+                type:     #DATAPOINT_REFERENCE,
+                position: 10 ,
+                targetQualifier: 'TravelID' },
+              { id:       'ARRIVAL',
+                purpose:  #HEADER,
+                type:     #DATAPOINT_REFERENCE,
+                position: 20 ,
+                targetQualifier: 'ArrivalTime' },
+              { label: 'General Information',
+                id:    'GeneralInfo',
+                type:  #COLLECTION,
+                position: 10 },
+  // General
+              { label: 'General',
+                id   : 'General',
+                purpose: #STANDARD,
+                type: #IDENTIFICATION_REFERENCE,
+                parentId: 'GeneralInfo',
+                position: 10 },
+  // City
+              { label: 'City',
+                id   : 'City',
+                purpose: #STANDARD,
+                type: #FIELDGROUP_REFERENCE,
+                parentId: 'GeneralInfo',
+                position: 20 ,
+                targetQualifier: 'City' },
+  // Schedule
+              { label: 'Schedule',
+                id   : 'Schedule',
+                purpose: #STANDARD,
+                type: #FIELDGROUP_REFERENCE,
+                parentId: 'GeneralInfo',
+                position: 30 ,
+                targetQualifier: 'Schedule' },
+  // Flight
+              { id:'Flight',
+                label:'Flight',
+                purpose: #STANDARD,
+               type:#LINEITEM_REFERENCE,
+               position: 20,
+                targetElement: '_Flight'
+              }
+      ]
+
+
+  // List Page column
+  @UI: { lineItem: [ { position: 10, label: 'Airline' } ],
+         //List Page selection screen
+         selectionField: [ { position:10 }  ],
+         identification: [ { position:10 }  ] }
+       // Required search (  Not work ABAP 7.5 lower)
+  //@Consumption.filter.mandatory: true
+    // Single selection
+  //@Consumption.filter:{ selectionType: #INTERVAL }
+  Carrid;
+  //@UI.lineItem:       [{ position: 15 , label: ' ' }]
+  //imgurl;
+  @UI.selectionField: [{ position: 20 }]
+  @UI.lineItem:       [{ position: 20 }]
+  @UI.dataPoint:{ qualifier: 'TravelID' ,title: 'Travel ID'}
+  @UI.identification: [{ position: 20 }]
+  Connid;
+  @UI.lineItem:       [{ position: 25 }]
+  carrname;
+  //@UI.textArrangement: #TEXT_ONLY
+  @UI.selectionField: [{ position: 30 }]
+  @UI.lineItem:       [{ position: 30 }]
+  @UI.fieldGroup:     [{qualifier: 'City', position: 10 }]
+  Cityfrom;
+  @UI.selectionField: [{ position: 40 }]
+  @UI.lineItem:       [{ position: 40 }]
+  @UI.fieldGroup:     [{qualifier: 'City', position: 20 }]
+  Cityto;
+  @UI.fieldGroup:     [{qualifier: 'Schedule', position: 10 }]
+  Deptime;
+  @UI.dataPoint:{ qualifier: 'ArrivalTime' ,title: 'Arrival time'}
+  //@UI.lineItem: [{ position: 50 ,criticality: 'critically_date'}]
+  @UI.fieldGroup:     [{qualifier: 'Schedule', position: 15 }]
+  Arrtime;
+  @UI.selectionField: [{ position: 60  }]
+  Period;
+}

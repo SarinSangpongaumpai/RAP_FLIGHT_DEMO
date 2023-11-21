@@ -1,0 +1,6 @@
+@EndUserText.label: 'Service definition for Travel'
+@AbapCatalog.extensibility.extensible: true
+define service YCDS_TRAVEL_SRV {
+  expose YCDS_TRAVEL_PROJECTION;
+  expose YCDS_TRAVEL_ITEM_PROJECTION;
+}

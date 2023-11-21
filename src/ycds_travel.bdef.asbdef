@@ -1,0 +1,67 @@
+managed implementation in class zbp_cds_travel unique;
+strict;
+with draft;
+
+define behavior for YCDS_TRAVEL alias TRAVEL_M
+persistent table yspfli
+draft table yspfli_draft
+lock master total etag Locallastchangedat
+authorization master ( instance )
+etag master Locallastchangedat
+{
+  field ( readonly : update ) Carrid, Connid;
+  field ( mandatory : create ) carrid, connid;
+  //field ( numbering : managed ) uuid;
+  create;
+  update;
+  delete;
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  association _Flight { create; }
+
+  mapping for yspfli
+    {
+      Carrid        = carrid;
+      Connid        = connid;
+      Airpfrom      = airpfrom;
+      Airpto        = airpto;
+      Cityfrom      = cityfrom;
+      Cityto        = cityto;
+      Deptime       = deptime;
+      Arrtime       = arrtime;
+      CreatedBy     = createdby;
+      CreatedAt     = createat;
+      LastChangedAt = lastchangedat;
+      LastChangedBy = lastchangedby;
+    }
+}
+
+define behavior for YCDS_TRAVEL_ITEM alias TRAVEL_ITEM_M
+persistent table ysflight
+draft table ysflight_draft
+lock dependent by _travel
+authorization dependent by _travel
+//etag dependent by _travel
+{
+  update;
+  delete;
+  field ( readonly ) Carrid, Connid, Fldate;
+  mapping for ysflight
+    {
+      Carrid        = carrid;
+      Connid        = connid;
+      Fldate        = fldate;
+      Currency      = currency;
+      Planetype     = planetype;
+      Price         = price;
+      CreatedBy     = createdby;
+      CreatedAt     = createat;
+      LastChangedAt = lastchangedat;
+      LastChangedBy = lastchangedby;
+    }
+  association _travel { with draft; }
+}

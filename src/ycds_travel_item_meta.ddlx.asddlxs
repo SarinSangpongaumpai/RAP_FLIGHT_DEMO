@@ -1,0 +1,16 @@
+@Metadata.layer: #CORE
+annotate view YCDS_TRAVEL_ITEM_PROJECTION with
+{
+  @UI.selectionField: [{ position: 10 }]
+  @UI.lineItem:       [{ position: 10 }]
+  Carrid;
+  @UI.lineItem:       [{ position: 20 }]
+  Connid;
+  @UI.lineItem:       [{ position: 30 }]
+  Fldate;
+  @UI.lineItem:       [{ position: 40 }]
+  Price;
+  @UI.lineItem:       [{ position: 50 }]
+  Currency;
+
+}
