@@ -2,8 +2,9 @@ projection;
 strict ( 1 );
 use draft;
 
-define behavior for YCDS_TRAVEL_PROJECTION alias TRAVEL_M
+define behavior for YCDS_TRAVEL_PROJECTION //alias TRAVEL_M
 {
+
   use create;
   use update;
   use delete;
@@ -14,7 +15,7 @@ define behavior for YCDS_TRAVEL_PROJECTION alias TRAVEL_M
   use action Resume;
   use action Prepare;
 
-  use association _Flight {  with draft; }
+  use association _Flight {with draft; }
 }
 
 define behavior for YCDS_TRAVEL_ITEM_PROJECTION //alias <alias_name>

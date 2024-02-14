@@ -19,7 +19,7 @@ define view entity YCDS_TRAVEL_ITEM
       sflight.lastchangedby      as LastChangedBy,
       @Semantics.systemDateTime.lastChangedAt: true
       sflight.lastchangedat      as LastChangedAt,
-      //@Semantics.systemDateTime.localInstanceLastChangedAt: true
-      //sflight.locallastchangedat as LocalLastChangedAt,
+      @Semantics.systemDateTime.localInstanceLastChangedAt: true
+      sflight.locallastchangedat as LocalLastChangedAt,
       _travel
 }

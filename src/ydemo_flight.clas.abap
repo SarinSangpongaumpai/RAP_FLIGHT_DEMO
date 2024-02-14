@@ -13,15 +13,37 @@ ENDCLASS.
 
 
 
-CLASS ydemo_flight IMPLEMENTATION.
-  METHOD if_oo_adt_classrun~main.
+CLASS YDEMO_FLIGHT IMPLEMENTATION.
 
-    "create_scarr( ).
-    create_sflight( ).
+
+  METHOD create_scarr.
+    DATA:lt_tab TYPE TABLE OF yscarr.
+    lt_tab = VALUE #(  ( carrid = 'AA' carrname = 'American Airlines' )
+( carrid = 'AB' carrname = 'Air Berlin' )
+( carrid = 'AC' carrname = 'Air Canada' )
+( carrid = 'AF' carrname = 'Air France' )
+( carrid = 'AZ' carrname = 'Alitalia' )
+( carrid = 'BA' carrname = 'British Airways' )
+( carrid = 'CO' carrname = 'Continental Airlines' )
+( carrid = 'DL' carrname = 'Delta Airlines' )
+( carrid = 'FJ' carrname = 'Air Pacific' )
+( carrid = 'JL' carrname = 'Japan Airlines' )
+( carrid = 'LH' carrname = 'Lufthansa' )
+( carrid = 'NG' carrname = 'Lauda Air' )
+( carrid = 'NW' carrname = 'Northwest Airlines' )
+( carrid = 'QF' carrname = 'Qantas Airways' )
+( carrid = 'SA' carrname = 'South African Air.' )
+( carrid = 'SQ' carrname = 'Singapore Airlines' )
+( carrid = 'SR' carrname = 'Swiss' )
+( carrid = 'UA' carrname = 'United Airlines' ) ).
+    MODIFY yscarr FROM TABLE @lt_tab.
+    COMMIT WORK AND WAIT.
   ENDMETHOD.
+
+
   METHOD create_sflight.
   data:lt_tab type table of ysflight.
-lt_tab = value #( ( CARRID = 'DL' CONNID = '106' FLDATE = '20230117' PRICE = '611.01' CURRENCY = 'USD' PLANETYPE = 'A340-600')
+lt_tab = value #( ( CARRID = 'DL' CONNID = '106' FLDATE = '20230117' PRICE = '600.01' CURRENCY = 'USD' PLANETYPE = 'A340-600')
 ( CARRID = 'DL' CONNID = '1699' FLDATE = '20230117' PRICE = '422.94' CURRENCY = 'USD' PLANETYPE = '767-200')
 ( CARRID = 'DL' CONNID = '1984' FLDATE = '20230117' PRICE = '422.94' CURRENCY = 'USD' PLANETYPE = 'A380-800')
 ( CARRID = 'LH' CONNID = '402' FLDATE = '20230117' PRICE = '666' CURRENCY = 'EUR' PLANETYPE = 'A380-800')
@@ -74,32 +96,12 @@ lt_tab = value #( ( CARRID = 'DL' CONNID = '106' FLDATE = '20230117' PRICE = '61
 ( CARRID = 'LH' CONNID = '2402' FLDATE = '20230223' PRICE = '242' CURRENCY = 'EUR' PLANETYPE = 'A380-800')
 ( CARRID = 'LH' CONNID = '2407' FLDATE = '20230223' PRICE = '242' CURRENCY = 'EUR' PLANETYPE = 'A320-200')
   ).
+  "delete from ysflight where price > 10.
        MODIFY ysflight from table @lt_tab.
        commit WORK AND WAIT.
-  ENDMETHOD..
-  METHOD create_scarr.
-    DATA:lt_tab TYPE TABLE OF yscarr.
-    lt_tab = VALUE #(  ( carrid = 'AA' carrname = 'American Airlines' )
-( carrid = 'AB' carrname = 'Air Berlin' )
-( carrid = 'AC' carrname = 'Air Canada' )
-( carrid = 'AF' carrname = 'Air France' )
-( carrid = 'AZ' carrname = 'Alitalia' )
-( carrid = 'BA' carrname = 'British Airways' )
-( carrid = 'CO' carrname = 'Continental Airlines' )
-( carrid = 'DL' carrname = 'Delta Airlines' )
-( carrid = 'FJ' carrname = 'Air Pacific' )
-( carrid = 'JL' carrname = 'Japan Airlines' )
-( carrid = 'LH' carrname = 'Lufthansa' )
-( carrid = 'NG' carrname = 'Lauda Air' )
-( carrid = 'NW' carrname = 'Northwest Airlines' )
-( carrid = 'QF' carrname = 'Qantas Airways' )
-( carrid = 'SA' carrname = 'South African Air.' )
-( carrid = 'SQ' carrname = 'Singapore Airlines' )
-( carrid = 'SR' carrname = 'Swiss' )
-( carrid = 'UA' carrname = 'United Airlines' ) ).
-    MODIFY yscarr FROM TABLE @lt_tab.
-    COMMIT WORK AND WAIT.
   ENDMETHOD.
+
+
   METHOD create_spfli.
     DATA:lt_tab TYPE TABLE OF yspfli.
 
@@ -392,5 +394,13 @@ lt_tab = value #( ( CARRID = 'DL' CONNID = '106' FLDATE = '20230117' PRICE = '61
     ).
     MODIFY yspfli FROM TABLE @lt_tab.
     COMMIT WORK AND WAIT.
+  ENDMETHOD.
+
+
+  METHOD if_oo_adt_classrun~main.
+
+    create_scarr( ).
+    create_sflight( ).
+    create_spfli( ).
   ENDMETHOD.
 ENDCLASS.

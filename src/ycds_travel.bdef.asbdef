@@ -1,5 +1,5 @@
 managed implementation in class zbp_cds_travel unique;
-strict;
+strict(1);
 with draft;
 
 define behavior for YCDS_TRAVEL alias TRAVEL_M
@@ -9,9 +9,9 @@ lock master total etag Locallastchangedat
 authorization master ( instance )
 etag master Locallastchangedat
 {
-  field ( readonly : update ) Carrid, Connid;
-  field ( mandatory : create ) carrid, connid;
-  //field ( numbering : managed ) uuid;
+
+  field ( mandatory : create ,readonly : update  ) CARRID,CONNID;
+
   create;
   update;
   delete;
@@ -21,8 +21,8 @@ etag master Locallastchangedat
   draft action Resume;
   draft determine action Prepare;
 
-  association _Flight { create; }
-
+  association _Flight { with draft; }
+   validation carrid on save { create; update; }
   mapping for yspfli
     {
       Carrid        = carrid;
@@ -33,10 +33,13 @@ etag master Locallastchangedat
       Cityto        = cityto;
       Deptime       = deptime;
       Arrtime       = arrtime;
+      Price         = price;
+      Currency      = currency;
       CreatedBy     = createdby;
       CreatedAt     = createat;
       LastChangedAt = lastchangedat;
       LastChangedBy = lastchangedby;
+      LocalLastChangedAt = locallastchangedat;
     }
 }
 
@@ -45,7 +48,7 @@ persistent table ysflight
 draft table ysflight_draft
 lock dependent by _travel
 authorization dependent by _travel
-//etag dependent by _travel
+etag master locallastchangedat
 {
   update;
   delete;

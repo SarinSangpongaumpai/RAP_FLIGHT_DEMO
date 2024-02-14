@@ -14,7 +14,8 @@ define root view entity YCDS_TRAVEL
       spfli.deptime            as Deptime,
       spfli.arrtime            as Arrtime,
       spfli.period             as Period,
-
+      spfli.price              as Price,
+      spfli.currency           as Currency,
       //case period
       //     when 0 then 3 //Less than 1 day  = Green
       //     when 1 then 2 //More than 1 day  = Yellow

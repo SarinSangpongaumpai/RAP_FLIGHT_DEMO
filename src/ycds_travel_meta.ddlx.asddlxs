@@ -1,5 +1,6 @@
 @Metadata.layer: #CORE
-@UI: { headerInfo: { typeName:'Flight schedule',
+@UI: {
+       headerInfo: { typeName:'Flight schedule',
                      typeNamePlural: 'Flight Schedule',
                               // Title object Page
                      title: { type: #STANDARD,
@@ -9,10 +10,13 @@
                      description:{
                         value:'carrname'
                      }
+
                     }
+
       }
 annotate view YCDS_TRAVEL_PROJECTION with
 {
+
   // แสดงรายละเอียดข้อมูลในอีกหน้าจอ
   @UI.facet: [{ id:       'Travel_ID',
                 purpose:  #HEADER,
@@ -63,18 +67,18 @@ annotate view YCDS_TRAVEL_PROJECTION with
 
 
   // List Page column
-  @UI: { lineItem: [ { position: 10, label: 'Airline' } ],
+  @UI:  { lineItem: [ { position: 10, label: 'Airline' } ],
          //List Page selection screen
          selectionField: [ { position:10 }  ],
          identification: [ { position:10 }  ] }
-       // Required search (  Not work ABAP 7.5 lower)
+  // Required search (  Not work ABAP 7.5 lower)
   //@Consumption.filter.mandatory: true
-    // Single selection
+  // Single selection
   //@Consumption.filter:{ selectionType: #INTERVAL }
   Carrid;
   //@UI.lineItem:       [{ position: 15 , label: ' ' }]
   //imgurl;
-  @UI.selectionField: [{ position: 20 }]
+  @UI.selectionField: [{ position: 20 , qualifier: 'TravelID'}]
   @UI.lineItem:       [{ position: 20 }]
   @UI.dataPoint:{ qualifier: 'TravelID' ,title: 'Travel ID'}
   @UI.identification: [{ position: 20 }]
@@ -85,6 +89,7 @@ annotate view YCDS_TRAVEL_PROJECTION with
   @UI.selectionField: [{ position: 30 }]
   @UI.lineItem:       [{ position: 30 }]
   @UI.fieldGroup:     [{qualifier: 'City', position: 10 }]
+  @Consumption.filter.defaultValue: 'JFK'
   Cityfrom;
   @UI.selectionField: [{ position: 40 }]
   @UI.lineItem:       [{ position: 40 }]
@@ -98,4 +103,8 @@ annotate view YCDS_TRAVEL_PROJECTION with
   Arrtime;
   @UI.selectionField: [{ position: 60  }]
   Period;
+  @UI.selectionField: [{ position: 70  }]
+  Price;
+  @UI.selectionField: [{ position: 80  }]
+  Currency;
 }

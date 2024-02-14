@@ -30,7 +30,8 @@ define root view entity YCDS_TRAVEL_PROJECTION
       Deptime,
       Arrtime,
       Period,
-
+      Price,                 
+      Currency,                
       //Image display
       //@Semantics.imageUrl: true
       //imgurl,
